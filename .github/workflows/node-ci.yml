@@ -1,0 +1,70 @@
+name: Node CI
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+  pull_request:
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v4
+        with: 
+          fetch-depth: 0
+
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "npm"
+
+      - name: Install Dependencies
+        run: |
+          npm ci
+
+      - name: Run Unit Tests
+        run: |
+          npm test
+
+      - name: Generate Coverage
+        run: |
+          npm run coverage
+
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: node-coverage
+          path: coverage/
+
+      # - name: Build Docker Image
+      #   run: |
+      #     docker build -t node-demo:${{ github.sha }} .
+
+      # - name: Dockerfile Lint
+      #   uses: hadolint/hadolint-action@v3.1.0
+      #   with:
+      #     dockerfile: Dockerfile
+
+      # - name: Scan Docker Image
+      #   uses: aquasecurity/trivy-action@v0.36.0
+      #   with:
+      #     image-ref: node-demo:${{ github.sha }}
+      #     severity: HIGH,CRITICAL
+      #     exit-code: 0
+
+      # - name: Generate SBOM
+      #   uses: anchore/sbom-action@v0
+      #   with:
+      #     image: node-demo:${{ github.sha }}

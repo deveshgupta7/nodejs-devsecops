@@ -1,0 +1,29 @@
+{
+  "name": "nodejs-devsecops-demo",
+  "version": "1.0.0",
+  "description": "Production Node.js DevSecOps Demo",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "coverage": "jest --coverage"
+},
+  "keywords": [
+    "nodejs",
+    "express",
+    "devsecops",
+    "docker",
+    "kubernetes"
+  ],
+  "author": "Devesh Gupta",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "jest": "^30.4.2",
+    "supertest": "^7.2.2"
+  }
+}
