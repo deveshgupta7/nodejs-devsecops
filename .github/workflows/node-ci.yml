@@ -60,19 +60,27 @@ jobs:
         run: |
           docker build -t nodejs-devsecops-demo:${{ github.sha }} .
 
-      # - name: Dockerfile Lint
-      #   uses: hadolint/hadolint-action@v3.1.0
-      #   with:
-      #     dockerfile: Dockerfile
+      - name: Dockerfile Lint
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
 
-      # - name: Scan Docker Image
-      #   uses: aquasecurity/trivy-action@v0.36.0
-      #   with:
-      #     image-ref: node-demo:${{ github.sha }}
-      #     severity: HIGH,CRITICAL
-      #     exit-code: 0
+      - name: Scan Docker Image
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: nodejs-devsecops-demo:${{ github.sha }}
+          severity: HIGH,CRITICAL
+          format: table
+          exit-code: 0
 
-      # - name: Generate SBOM
-      #   uses: anchore/sbom-action@v0
-      #   with:
-      #     image: node-demo:${{ github.sha }}
+      - name: Generate SBOM
+        uses: anchore/sbom-action@v0
+        with:
+          image: nodejs-devsecops-demo:${{ github.sha }}
+          output-file: sbom.spdx.json
+
+      - name: Upload SBOM
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: sbom.spdx.json
