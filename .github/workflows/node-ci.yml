@@ -56,9 +56,9 @@ jobs:
           name: node-coverage
           path: coverage/
 
-      # - name: Build Docker Image
-      #   run: |
-      #     docker build -t node-demo:${{ github.sha }} .
+      - name: Build Docker Image
+        run: |
+          docker build -t nodejs-devsecops-demo:${{ github.sha }} .
 
       # - name: Dockerfile Lint
       #   uses: hadolint/hadolint-action@v3.1.0

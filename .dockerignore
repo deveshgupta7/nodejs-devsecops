@@ -1,15 +1,17 @@
+node_modules
+
+coverage
+
 .git
 
 .github
 
-.venv
-
-__pycache__
-
-.pytest_cache
-
-coverage.xml
-
-tests
-
 README.md
+
+.vscode
+
+.idea
+
+.env
+
+npm-debug.log
