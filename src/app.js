@@ -10,19 +10,19 @@ app.get("/", (req, res) => {
   res.status(200).json({
     application: "Node.js DevSecOps Demo",
     message: "Application is running successfully",
-    version: VERSION
+    version: VERSION,
   });
 });
 
 app.get("/health", (req, res) => {
   res.status(200).json({
-    status: "healthy"
+    status: "healthy",
   });
 });
 
 app.get("/version", (req, res) => {
   res.status(200).json({
-    version: VERSION
+    version: VERSION,
   });
 });
 
